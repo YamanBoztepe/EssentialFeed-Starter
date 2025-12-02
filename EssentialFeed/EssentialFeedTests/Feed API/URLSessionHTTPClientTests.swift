@@ -106,7 +106,7 @@ final class URLSessionHTTPClientTests: XCTestCase {
         case let .failure(error):
             return error
         default:
-            XCTFail("Expected failure, got \(result) instead.", file: file, line: line)
+            XCTFail("Expected failure, but got \(result) instead.", file: file, line: line)
             return nil
         }
     }
