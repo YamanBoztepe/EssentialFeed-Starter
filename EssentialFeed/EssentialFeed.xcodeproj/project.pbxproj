@@ -42,10 +42,10 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		1CFE083E2EDEFFF70047A69D /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		1CCB6DCA2EE32CD000A4CE3C /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				"Helpers/XCTestCase+MemoryLeakTracking.swift",
+				"XCTestCase+MemoryLeakTracking.swift",
 			);
 			target = 1CFE08322EDEF6980047A69D /* EssentialFeedAPIEndtoEndTests */;
 		};
@@ -53,8 +53,9 @@
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		1CCB6DC32EE3290300A4CE3C /* Feed Cache */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Feed Cache"; sourceTree = "<group>"; };
+		1CCB6DC72EE32CD000A4CE3C /* Helpers */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (1CCB6DCA2EE32CD000A4CE3C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Helpers; sourceTree = "<group>"; };
 		1CFE079B2ED741180047A69D /* Feed API */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Feed API"; sourceTree = "<group>"; };
-		1CFE08122EDB11630047A69D /* Feed API */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (1CFE083E2EDEFFF70047A69D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "Feed API"; sourceTree = "<group>"; };
+		1CFE08122EDB11630047A69D /* Feed API */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Feed API"; sourceTree = "<group>"; };
 		1CFE08342EDEF6980047A69D /* EssentialFeedAPIEndtoEndTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = EssentialFeedAPIEndtoEndTests; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -119,6 +120,7 @@
 		080EDEFE21B6DA7E00813479 /* EssentialFeedTests */ = {
 			isa = PBXGroup;
 			children = (
+				1CCB6DC72EE32CD000A4CE3C /* Helpers */,
 				1CCB6DC32EE3290300A4CE3C /* Feed Cache */,
 				1CFE08122EDB11630047A69D /* Feed API */,
 				080EDF0121B6DA7E00813479 /* Info.plist */,
@@ -184,6 +186,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				1CCB6DC32EE3290300A4CE3C /* Feed Cache */,
+				1CCB6DC72EE32CD000A4CE3C /* Helpers */,
 				1CFE08122EDB11630047A69D /* Feed API */,
 			);
 			name = EssentialFeedTests;
