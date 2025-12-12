@@ -208,62 +208,6 @@ final class CodableFeedStoreTests: XCTestCase, FailableFeedStoreSpecs {
         return sut
     }
     
-    @discardableResult
-    private func deleteCache(from sut: FeedStore) -> Error? {
-        let exp = expectation(description: "Wait for load")
-        
-        var deletionError: Error?
-        sut.deleteCachedFeed { receivedError in
-            deletionError = receivedError
-            exp.fulfill()
-        }
-        waitForExpectations(timeout: 1)
-        
-        return deletionError
-    }
-    
-    @discardableResult
-    private func insert(_ cache: (feed: [LocalFeedImage], timestamp: Date), to sut: FeedStore) -> Error? {
-        let exp = expectation(description: "Wait for load")
-        
-        var insertionError: Error?
-        sut.insert(cache.feed, timestamp: cache.timestamp) { receivedError in
-            insertionError = receivedError
-            exp.fulfill()
-        }
-        waitForExpectations(timeout: 1)
-        
-        return insertionError
-    }
-    
-    private func expect(_ sut: FeedStore, toRetrieve expectedResult: RetrieveCachedFeedResult, file: StaticString = #file, line: UInt = #line) {
-        let exp = expectation(description: "Wait for retrieve")
-        
-        sut.retrieve { receivedResult in
-            switch (expectedResult, receivedResult) {
-            case (.empty, .empty),
-                (.failure, .failure):
-                break
-                
-            case let (.found(expectedFeed, expectedTimestamp), .found(receivedFeed, receivedTimestamp)):
-                XCTAssertEqual(expectedFeed, receivedFeed, file: file, line: line)
-                XCTAssertEqual(expectedTimestamp, receivedTimestamp, file: file, line: line)
-                
-            default:
-                XCTFail("Expected \(expectedResult), got \(receivedResult)", file: file, line: line)
-            }
-            
-            exp.fulfill()
-        }
-        
-        waitForExpectations(timeout: 1)
-    }
-    
-    private func expect(_ sut: FeedStore, toRetrieveTwice expectedResult: RetrieveCachedFeedResult, file: StaticString = #file, line: UInt = #line) {
-        expect(sut, toRetrieve: expectedResult, file: file, line: line)
-        expect(sut, toRetrieve: expectedResult, file: file, line: line)
-    }
-    
     private func setupEmptyStoreState() {
         deleteStoreArtifacts()
     }
