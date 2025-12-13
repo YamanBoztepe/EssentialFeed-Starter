@@ -33,12 +33,7 @@ final class EssentialFeedCacheIntegrationTests: XCTestCase {
         let sutToPerformLoad = makeSUT()
         let feed = uniqueImageFeed().models
         
-        let saveExp = expectation(description: "wait for save to complete")
-        sutToPerformSave.save(feed) { saveError in
-            XCTAssertNil(saveError, "Expected to save without error")
-            saveExp.fulfill()
-        }
-        waitForExpectations(timeout: 1)
+        save(feed, with: sutToPerformSave)
         
         expect(sutToPerformLoad, toLoad: feed)
     }
@@ -50,19 +45,8 @@ final class EssentialFeedCacheIntegrationTests: XCTestCase {
         let feed1 = uniqueImageFeed().models
         let feed2 = uniqueImageFeed().models
         
-        let saveExp1 = expectation(description: "wait for first save to complete")
-        sutToPerformSave1.save(feed1) { saveError in
-            XCTAssertNil(saveError, "Expected to save without error")
-            saveExp1.fulfill()
-        }
-        waitForExpectations(timeout: 1)
-        
-        let saveExp2 = expectation(description: "wait for second save to complete")
-        sutToPerformSave2.save(feed2) { saveError in
-            XCTAssertNil(saveError, "Expected to save without error")
-            saveExp2.fulfill()
-        }
-        waitForExpectations(timeout: 1)
+        save(feed1, with: sutToPerformSave1)
+        save(feed2, with: sutToPerformSave2)
         
         expect(sutToPerformLoad, toLoad: feed2)
     }
@@ -93,6 +77,15 @@ final class EssentialFeedCacheIntegrationTests: XCTestCase {
             exp.fulfill()
         }
         
+        waitForExpectations(timeout: 1)
+    }
+    
+    private func save(_ feed: [FeedImage], with sut: LocalFeedLoader, file: StaticString = #filePath, line: UInt = #line) {
+        let saveExp = expectation(description: "wait for save to complete")
+        sut.save(feed) { saveError in
+            XCTAssertNil(saveError, "Expected to save without error", file: file, line: line)
+            saveExp.fulfill()
+        }
         waitForExpectations(timeout: 1)
     }
     
