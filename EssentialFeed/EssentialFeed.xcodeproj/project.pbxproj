@@ -51,6 +51,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		1C154A9E2EED5D49007E1F5A /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"XCTestCase+MemoryLeakTracking.swift",
+			);
+			target = 1C154A912EED5865007E1F5A /* EssentialFeedCacheIntegrationTests */;
+		};
 		1CCB6DCA2EE32CD000A4CE3C /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -64,7 +71,7 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		1C154A932EED5865007E1F5A /* EssentialFeedCacheIntegrationTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = EssentialFeedCacheIntegrationTests; sourceTree = "<group>"; };
 		1CCB6DC32EE3290300A4CE3C /* Feed Cache */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Feed Cache"; sourceTree = "<group>"; };
-		1CCB6DC72EE32CD000A4CE3C /* Helpers */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (1CCB6DCA2EE32CD000A4CE3C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Helpers; sourceTree = "<group>"; };
+		1CCB6DC72EE32CD000A4CE3C /* Helpers */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (1CCB6DCA2EE32CD000A4CE3C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 1C154A9E2EED5D49007E1F5A /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Helpers; sourceTree = "<group>"; };
 		1CCB6DCB2EE3904C00A4CE3C /* Feed Cache */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Feed Cache"; sourceTree = "<group>"; };
 		1CFE079B2ED741180047A69D /* Feed API */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Feed API"; sourceTree = "<group>"; };
 		1CFE08122EDB11630047A69D /* Feed API */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Feed API"; sourceTree = "<group>"; };
