@@ -5,15 +5,19 @@
 //  Created by Yaman Boztepe on 2.12.2025.
 //
 
+//
+//  Copyright © 2019 Essential Developer. All rights reserved.
+//
+
 import XCTest
 import EssentialFeed
 
-final class EssentialFeedAPIEndtoEndTests: XCTestCase {
+class EssentialFeedAPIEndToEndTests: XCTestCase {
     
     func test_endToEndTestServerGETFeedResult_matchesFixedTestAccountData() {
         switch getFeedResult() {
-        case .success(let imageFeed):
-            XCTAssertEqual(imageFeed.count, 8, "Expected 8 images")
+        case let .success(imageFeed)?:
+            XCTAssertEqual(imageFeed.count, 8, "Expected 8 images in the test account image feed")
             XCTAssertEqual(imageFeed[0], expectedImage(at: 0))
             XCTAssertEqual(imageFeed[1], expectedImage(at: 1))
             XCTAssertEqual(imageFeed[2], expectedImage(at: 2))
@@ -23,39 +27,37 @@ final class EssentialFeedAPIEndtoEndTests: XCTestCase {
             XCTAssertEqual(imageFeed[6], expectedImage(at: 6))
             XCTAssertEqual(imageFeed[7], expectedImage(at: 7))
             
-        case .failure(let error):
-            XCTFail("Expected to load successfully, but got error: \(error)")
+        case let .failure(error)?:
+            XCTFail("Expected successful feed result, got \(error) instead")
             
-        case .none:
-            XCTFail("Expected to load successfully, but got no result instead")
+        default:
+            XCTFail("Expected successful feed result, got no result instead")
         }
     }
     
     // MARK: - Helpers
     
-    private func getFeedResult(file: StaticString = #filePath, line: UInt = #line) -> LoadFeedResult? {
-        let testserverURL = URL(string: "https://essentialdeveloper.com/feed-case-study/test-api/feed")!
+    private func getFeedResult(file: StaticString = #file, line: UInt = #line) -> FeedLoader.Result? {
+        let testServerURL = URL(string: "https://essentialdeveloper.com/feed-case-study/test-api/feed")!
         let client = URLSessionHTTPClient(session: URLSession(configuration: .ephemeral))
-        let loader = RemoteFeedLoader(url: testserverURL, client: client)
-        
+        let loader = RemoteFeedLoader(url: testServerURL, client: client)
         trackForMemoryLeaks(client, file: file, line: line)
         trackForMemoryLeaks(loader, file: file, line: line)
         
-        let exp = expectation(description: "Wait for loading")
+        let exp = expectation(description: "Wait for load completion")
         
-        var receivedResult: LoadFeedResult?
+        var receivedResult: FeedLoader.Result?
         loader.load { result in
             receivedResult = result
             exp.fulfill()
         }
-        
-        waitForExpectations(timeout: 5)
+        wait(for: [exp], timeout: 5.0)
         
         return receivedResult
     }
     
     private func expectedImage(at index: Int) -> FeedImage {
-        FeedImage(
+        return FeedImage(
             id: id(at: index),
             description: description(at: index),
             location: location(at: index),
@@ -63,7 +65,7 @@ final class EssentialFeedAPIEndtoEndTests: XCTestCase {
     }
     
     private func id(at index: Int) -> UUID {
-        UUID(uuidString: [
+        return UUID(uuidString: [
             "73A7F70C-75DA-4C2E-B5A3-EED40DC53AA6",
             "BA298A85-6275-48D3-8315-9C8F7C1CD109",
             "5A0D45B3-8E26-4385-8C5D-213E160A5E3C",
@@ -76,7 +78,7 @@ final class EssentialFeedAPIEndtoEndTests: XCTestCase {
     }
     
     private func description(at index: Int) -> String? {
-        [
+        return [
             "Description 1",
             nil,
             "Description 3",
@@ -89,7 +91,7 @@ final class EssentialFeedAPIEndtoEndTests: XCTestCase {
     }
     
     private func location(at index: Int) -> String? {
-        [
+        return [
             "Location 1",
             "Location 2",
             nil,
@@ -102,6 +104,6 @@ final class EssentialFeedAPIEndtoEndTests: XCTestCase {
     }
     
     private func imageURL(at index: Int) -> URL {
-        URL(string: "https://url-\(index+1).com")!
+        return URL(string: "https://url-\(index+1).com")!
     }
 }
