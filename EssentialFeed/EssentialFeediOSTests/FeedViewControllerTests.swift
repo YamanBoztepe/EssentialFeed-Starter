@@ -10,6 +10,7 @@ import EssentialFeed
 
 class FeedViewController: UITableViewController {
     private var loader: FeedLoader?
+    private var onViewIsAppearing: ((FeedViewController) -> Void)?
     
     convenience init(loader: FeedLoader) {
         self.init()
@@ -21,12 +22,17 @@ class FeedViewController: UITableViewController {
         
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(load), for: .valueChanged)
+        
+        onViewIsAppearing = { vc in
+            vc.refreshControl?.beginRefreshing()
+            vc.load()
+            vc.onViewIsAppearing = nil
+        }
     }
     
     override func viewIsAppearing(_ animated: Bool) {
         super.viewIsAppearing(animated)
-        refreshControl?.beginRefreshing()
-        load()
+        onViewIsAppearing?(self)
     }
     
     @objc private func load() {
@@ -45,18 +51,14 @@ final class FeedViewControllerTests: XCTestCase {
     func test_viewDidLoad_loadsFeed() {
         let (sut, loader) = makeSUT()
         
-        sut.loadViewIfNeeded()
-        sut.beginAppearanceTransition(true, animated: false)
-        sut.endAppearanceTransition()
+        completeViewLifeCycle(for: sut)
         
         XCTAssertEqual(loader.loadCallCount, 1)
     }
     
     func test_pullToRefresh_loadsFeed() {
         let (sut, loader) = makeSUT()
-        sut.loadViewIfNeeded()
-        sut.beginAppearanceTransition(true, animated: false)
-        sut.endAppearanceTransition()
+        completeViewLifeCycle(for: sut)
         
         sut.refreshControl?.simulatePullToRefresh()
         XCTAssertEqual(loader.loadCallCount, 2)
@@ -69,9 +71,7 @@ final class FeedViewControllerTests: XCTestCase {
         let (sut, _) = makeSUT()
         sut.replaceRefreshControlWithFakeForiOS17Support()
         
-        sut.loadViewIfNeeded()
-        sut.beginAppearanceTransition(true, animated: false)
-        sut.endAppearanceTransition()
+        completeViewLifeCycle(for: sut)
         
         XCTAssertEqual(sut.refreshControl?.isRefreshing, true)
     }
@@ -84,6 +84,12 @@ final class FeedViewControllerTests: XCTestCase {
         trackForMemoryLeaks(loader, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, loader)
+    }
+    
+    private func completeViewLifeCycle(for sut: FeedViewController) {
+        sut.loadViewIfNeeded()
+        sut.beginAppearanceTransition(true, animated: false)
+        sut.endAppearanceTransition()
     }
     
     class FeedLoaderSpy: FeedLoader {
