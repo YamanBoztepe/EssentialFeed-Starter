@@ -8,27 +8,25 @@
 import EssentialFeed
 
 final class FeedViewModel {
+    typealias Oberserver<T> = (T) -> Void
+    
     private let feedLoader: FeedLoader
     
     init(feedLoader: FeedLoader) {
         self.feedLoader = feedLoader
     }
     
-    var onChange: ((FeedViewModel) -> Void)?
-    var onFeedLoad: (([FeedImage]) -> Void)?
-    
-    private(set) var isLoading: Bool = false {
-        didSet { onChange?(self) }
-    }
+    var onLoadingStateChange: Oberserver<Bool>?
+    var onFeedLoad: Oberserver<[FeedImage]>?
     
     func loadFeed() {
-        isLoading = true
+        onLoadingStateChange?(true)
         feedLoader.load { [weak self] result in
             if let feed = try? result.get() {
                 self?.onFeedLoad?(feed)
             }
             
-            self?.isLoading = false
+            self?.onLoadingStateChange?(false)
         }
     }
 }
