@@ -18,7 +18,16 @@
         }
       ]
     },
-    "performanceAntipatternCheckerEnabled" : true
+    "mainThreadCheckerDetectionPolicy" : {
+      "severity" : "failure"
+    },
+    "performanceAntipatternCheckerEnabled" : true,
+    "runtimeIssueDetection" : {
+      "severity" : "failure"
+    },
+    "threadPerformanceCheckerRuntimeIssueDetection" : {
+      "severity" : "failure"
+    }
   },
   "testTargets" : [
     {
