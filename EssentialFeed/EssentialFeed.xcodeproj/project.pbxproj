@@ -129,6 +129,7 @@
 		5A312BCD2EF4B984000371F2 /* EssentialFeediOS */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = EssentialFeediOS; sourceTree = "<group>"; };
 		5A312BD82EF4B984000371F2 /* EssentialFeediOSTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = EssentialFeediOSTests; sourceTree = "<group>"; };
 		5A3FDA1A2F10FAE600ACC2B0 /* Feed Presentation */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Feed Presentation"; sourceTree = "<group>"; };
+		5ABFAD882F115C0B000EC58C /* Feed Presentation */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Feed Presentation"; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -215,6 +216,7 @@
 		080EDEF321B6DA7E00813479 /* EssentialFeed */ = {
 			isa = PBXGroup;
 			children = (
+				5ABFAD882F115C0B000EC58C /* Feed Presentation */,
 				1CCB6DCB2EE3904C00A4CE3C /* Feed Cache */,
 				1CFE079B2ED741180047A69D /* Feed API */,
 				080EDEF521B6DA7E00813479 /* Info.plist */,
@@ -287,6 +289,7 @@
 			fileSystemSynchronizedGroups = (
 				1CCB6DCB2EE3904C00A4CE3C /* Feed Cache */,
 				1CFE079B2ED741180047A69D /* Feed API */,
+				5ABFAD882F115C0B000EC58C /* Feed Presentation */,
 			);
 			name = EssentialFeed;
 			productName = EssentialFeed;
