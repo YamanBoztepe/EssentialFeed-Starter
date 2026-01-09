@@ -6,82 +6,33 @@
 //
 
 import XCTest
-import EssentialFeed
 
-struct FeedImageViewModel<Image> {
-    let description: String?
-    let location: String?
-    let image: Image?
-    let isLoading: Bool
-    let shouldRetry: Bool
-    
-    var hasLocation: Bool {
-        location != nil
+class FeedImagePresenter {
+    init(view: Any) {
+        
     }
 }
 
-extension FeedImageViewModel: Equatable where Image: Equatable {}
-
-protocol FeedImageView {
-    associatedtype Image
+class FeedImagePresenterTests: XCTestCase {
     
-    func display(_ viewModel: FeedImageViewModel<Image>)
-}
-
-final class FeedImagePresenter<View: FeedImageView, Image> where View.Image == Image {
-    private let view: View
-    
-    init(view: View) {
-        self.view = view
-    }
-    
-    func didStartLoadingImageData(for model: FeedImage) {
-        view.display(FeedImageViewModel(
-            description: model.description,
-            location: model.location,
-            image: nil,
-            isLoading: true,
-            shouldRetry: false))
-    }
-}
-
-final class FeedImagePresenterTests: XCTestCase {
-    
-    func test_init_doesNotSendAnyMessage() {
-        let view = ViewSpy<UIImage>()
+    func test_init_doesNotSendMessagesToView() {
+        let (_, view) = makeSUT()
         
-        _ = FeedImagePresenter(view: view)
-        
-        XCTAssertTrue(view.messages.isEmpty)
-    }
-    
-    func test_didStartLoadingImageData_displayFeedImage() {
-        let view = ViewSpy<UIImage>()
-        let sut = FeedImagePresenter(view: view)
-        let image = uniqueImage()
-        let viewModel = FeedImageViewModel<UIImage>(
-            description: image.description,
-            location: image.location,
-            image: nil,
-            isLoading: true,
-            shouldRetry: false)
-        
-        sut.didStartLoadingImageData(for: image)
-        
-        XCTAssertEqual(view.messages, [.display(image: viewModel)])
+        XCTAssertTrue(view.messages.isEmpty, "Expected no view messages")
     }
     
     // MARK: - Helpers
     
-    final class ViewSpy<Image: Equatable>: FeedImageView {
-        enum Messages: Equatable {
-            case display(image: FeedImageViewModel<Image>)
-        }
-        
-        private(set) var messages: [Messages] = []
-        
-        func display(_ viewModel: FeedImageViewModel<Image>) {
-            messages.append(.display(image: viewModel))
-        }
+    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: FeedImagePresenter, view: ViewSpy) {
+        let view = ViewSpy()
+        let sut = FeedImagePresenter(view: view)
+        trackForMemoryLeaks(view, file: file, line: line)
+        trackForMemoryLeaks(sut, file: file, line: line)
+        return (sut, view)
     }
+    
+    private class ViewSpy {
+        let messages = [Any]()
+    }
+    
 }
