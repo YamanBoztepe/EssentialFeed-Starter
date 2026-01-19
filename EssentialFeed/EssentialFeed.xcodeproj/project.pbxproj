@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 73;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,6 +16,7 @@
 		5A14EE862EF6F93300494D89 /* EssentialFeed.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 080EDEF121B6DA7E00813479 /* EssentialFeed.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5A312BD52EF4B984000371F2 /* EssentialFeediOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A312BCC2EF4B984000371F2 /* EssentialFeediOS.framework */; };
 		5A5B7E8F2F180585006A1DF1 /* FeedImageDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5B7E4B2F17FB5B006A1DF1 /* FeedImageDataLoader.swift */; };
+		5ACE6D9E2F1EB889004E4170 /* FeedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACE6D9D2F1EB889004E4170 /* FeedCache.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,7 @@
 		5A312BE12EF4BA17000371F2 /* EssentialFeediOS.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = EssentialFeediOS.xctestplan; sourceTree = "<group>"; };
 		5A312BE22EF4BB55000371F2 /* CI_iOS.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = CI_iOS.xctestplan; path = ../CI_iOS.xctestplan; sourceTree = "<group>"; };
 		5A5B7E4B2F17FB5B006A1DF1 /* FeedImageDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageDataLoader.swift; sourceTree = "<group>"; };
+		5ACE6D9D2F1EB889004E4170 /* FeedCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCache.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -118,30 +120,13 @@
 			);
 			target = 5A312BD32EF4B984000371F2 /* EssentialFeediOSTests */;
 		};
-		5AEA80B32F196E4D00E30AC1 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"Infrastructure/Core Data/FeedStore2.xcdatamodeld",
-			);
-			target = 080EDEF021B6DA7E00813479 /* EssentialFeed */;
-		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
-/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-		5AEA80B42F196E4D00E30AC1 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
-			buildPhase = 080EDEED21B6DA7E00813479 /* Sources */;
-			membershipExceptions = (
-				"Infrastructure/Core Data/FeedStore2.xcdatamodeld",
-			);
-		};
-/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		1C154A932EED5865007E1F5A /* EssentialFeedCacheIntegrationTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = EssentialFeedCacheIntegrationTests; sourceTree = "<group>"; };
 		1CCB6DC32EE3290300A4CE3C /* Feed Cache */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (1C154AA02EED613A007E1F5A /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "Feed Cache"; sourceTree = "<group>"; };
 		1CCB6DC72EE32CD000A4CE3C /* Helpers */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (1CCB6DCA2EE32CD000A4CE3C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 1C154A9E2EED5D49007E1F5A /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 5A14EE8B2EF6F9DC00494D89 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Helpers; sourceTree = "<group>"; };
-		1CCB6DCB2EE3904C00A4CE3C /* Feed Cache */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (5AEA80B32F196E4D00E30AC1 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 5AEA80B42F196E4D00E30AC1 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "Feed Cache"; sourceTree = "<group>"; };
+		1CCB6DCB2EE3904C00A4CE3C /* Feed Cache */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Feed Cache"; sourceTree = "<group>"; };
 		1CFE079B2ED741180047A69D /* Feed API */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Feed API"; sourceTree = "<group>"; };
 		1CFE08122EDB11630047A69D /* Feed API */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Feed API"; sourceTree = "<group>"; };
 		1CFE08342EDEF6980047A69D /* EssentialFeedAPIEndtoEndTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = EssentialFeedAPIEndtoEndTests; sourceTree = "<group>"; };
@@ -259,6 +244,7 @@
 		080EDF1021B6DFA200813479 /* Feed Feature */ = {
 			isa = PBXGroup;
 			children = (
+				5ACE6D9D2F1EB889004E4170 /* FeedCache.swift */,
 				5A5B7E4B2F17FB5B006A1DF1 /* FeedImageDataLoader.swift */,
 				080EDF0B21B6DAE800813479 /* FeedItem.swift */,
 				080EDF0D21B6DCB600813479 /* FeedLoader.swift */,
@@ -468,6 +454,7 @@
 				};
 			};
 			buildConfigurationList = 080EDEEB21B6DA7E00813479 /* Build configuration list for PBXProject "EssentialFeed" */;
+			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -477,7 +464,6 @@
 				tr,
 			);
 			mainGroup = 080EDEE721B6DA7E00813479;
-			preferredProjectObjectVersion = 55;
 			productRefGroup = 080EDEF221B6DA7E00813479 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -544,6 +530,7 @@
 			files = (
 				080EDF0E21B6DCB600813479 /* FeedLoader.swift in Sources */,
 				5A5B7E8F2F180585006A1DF1 /* FeedImageDataLoader.swift in Sources */,
+				5ACE6D9E2F1EB889004E4170 /* FeedCache.swift in Sources */,
 				080EDF0C21B6DAE800813479 /* FeedItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
