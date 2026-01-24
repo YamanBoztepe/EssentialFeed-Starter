@@ -42,13 +42,6 @@
     {
       "target" : {
         "containerPath" : "container:EssentialApp.xcodeproj",
-        "identifier" : "5A273D482F22A3F500ECCD3D",
-        "name" : "EssentialAppUIAcceptanceTests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:EssentialApp.xcodeproj",
         "identifier" : "5AEAB04B2F1A109600E30AC1",
         "name" : "EssentialAppTests"
       }
