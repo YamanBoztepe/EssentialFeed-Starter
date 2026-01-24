@@ -11,9 +11,9 @@ import EssentialFeediOS
 
 final class SceneDelegateTests: XCTestCase {
     
-    func test_sceneWillConnectToSession_configuresRootViewController() {
+    func test_sceneWillConnectToSession_configuresRootViewController() throws {
         let sut = SceneDelegate()
-        sut.window = UIWindow()
+        sut.window = try UIWindowSpy.make()
         
         sut.configureWindow()
         
@@ -23,5 +23,18 @@ final class SceneDelegateTests: XCTestCase {
         
         XCTAssertNotNil(rootNavigation)
         XCTAssertTrue(topController is FeedViewController)
+    }
+    
+    private class UIWindowSpy: UIWindow {
+        var makeKeyAndVisibleCallCount = 0
+        
+        static func make() throws -> UIWindowSpy {
+            let dummyScene = try XCTUnwrap((UIWindowScene.self as NSObject.Type).init() as? UIWindowScene)
+            return UIWindowSpy(windowScene: dummyScene)
+        }
+                
+        override func makeKeyAndVisible() {
+            makeKeyAndVisibleCallCount += 1
+        }
     }
 }
