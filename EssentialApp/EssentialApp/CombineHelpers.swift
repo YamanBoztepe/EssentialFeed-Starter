@@ -78,7 +78,7 @@ extension Publisher {
 extension DispatchQueue {
     
     static var immediateWhenOnMainQueueScheduler: ImmediateWhenOnMainQueueSchedular {
-        return ImmediateWhenOnMainQueueSchedular()
+        return ImmediateWhenOnMainQueueSchedular.shared
     }
     
     struct ImmediateWhenOnMainQueueSchedular: Scheduler {
@@ -93,12 +93,17 @@ extension DispatchQueue {
             DispatchQueue.main.minimumTolerance
         }
         
-        func schedule(after date: SchedulerTimeType, interval: SchedulerTimeType.Stride, tolerance: SchedulerTimeType.Stride, options: SchedulerOptions?, _ action: @escaping () -> Void) -> any Cancellable {
-            DispatchQueue.main.schedule(after: date, interval: interval, tolerance: tolerance, options: options, action)
+        static let shared = Self()
+        
+        private static let key = DispatchSpecificKey<UInt8>()
+        private static let value = UInt8.max
+        
+        private init() {
+            DispatchQueue.main.setSpecific(key: Self.key, value: Self.value)
         }
         
-        func schedule(after date: SchedulerTimeType, tolerance: SchedulerTimeType.Stride, options: SchedulerOptions?, _ action: @escaping () -> Void) {
-            DispatchQueue.main.schedule(after: date, tolerance: tolerance, options: options, action)
+        private func isMainQueue() -> Bool {
+            return DispatchQueue.main.getSpecific(key: Self.key) == Self.value
         }
         
         func schedule(options: DispatchQueue.SchedulerOptions?, _ action: @escaping () -> Void) {
@@ -108,6 +113,14 @@ extension DispatchQueue {
             }
             
             action()
+        }
+        
+        func schedule(after date: SchedulerTimeType, interval: SchedulerTimeType.Stride, tolerance: SchedulerTimeType.Stride, options: SchedulerOptions?, _ action: @escaping () -> Void) -> any Cancellable {
+            DispatchQueue.main.schedule(after: date, interval: interval, tolerance: tolerance, options: options, action)
+        }
+        
+        func schedule(after date: SchedulerTimeType, tolerance: SchedulerTimeType.Stride, options: SchedulerOptions?, _ action: @escaping () -> Void) {
+            DispatchQueue.main.schedule(after: date, tolerance: tolerance, options: options, action)
         }
     }
 }
